@@ -1,0 +1,36 @@
+@using Microsoft.Identity.Web.UI.Areas.MicrosoftIdentity.Controllers
+@using Microsoft.Identity.Web.UI
+@using Microsoft.Extensions.Options
+@using Microsoft.AspNetCore.Authentication.AzureADB2C.UI
+
+@inject IOptionsMonitor<AzureADB2COptions> AzureADB2COptions
+
+@{
+    var options = AzureADB2COptions.Get(AzureADB2CDefaults.AuthenticationScheme);
+}
+
+<div class="header-nav--utilities d-flex align-items-center justify-content-end flex-row-reverse flex-row flex-md-row">
+    @if (User.Identity.IsAuthenticated)
+    {
+        @if (!string.IsNullOrEmpty(options.EditProfilePolicyId))
+        {
+            <div class="account d-flex flex-column">
+                <a asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="EditProfile">@User.Identity.Name</a> <a asp-area="AzureADB2C" asp-controller="Account" asp-action="SignOut">Log Out</a>
+            </div>
+            <div class="image"><img alt="John Doe" src="https://www.pluralsight.com/content/dam/pluralsight2/teach/author-tools/carved-rock-fitness/profile-pic.jpg"></div>
+        }
+        else
+        {
+            <div class="account d-flex flex-column">
+                @User.Identity.Name <a asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignOut">Log Out</a>
+            </div>
+            <div class="image"><img alt="John Doe" src="https://www.pluralsight.com/content/dam/pluralsight2/teach/author-tools/carved-rock-fitness/profile-pic.jpg"></div>
+        }
+    }
+    else
+    {
+        <div class="account d-flex flex-column">
+            <a asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignIn">Sign in</a>
+        </div>
+    }  
+</div>

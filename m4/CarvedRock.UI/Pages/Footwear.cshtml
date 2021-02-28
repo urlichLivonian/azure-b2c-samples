@@ -1,0 +1,32 @@
+﻿@page
+@model CarvedRock.UI.Pages.FootwearModel
+@{
+}
+
+<div class="container d-flex flex-column justify-content-center align-items-sm-stretch align-items-md-center">
+    <h1 class="col-sm-12"><div>FOOTWEAR</div></h1>
+</div>
+
+<div class="container crf-story">
+    <div class="row">
+        @for (int i = 1; i < 4; i++)
+        {
+            <div class="col-lg-3 col-md-6">
+                <div class="crf-story--image"><img alt="Splash Chic" src="@string.Format("/images/boot-{0}.jpg",@i)"/></div>
+                <div class="crf-story--text">
+                    <h3>Boot @i</h3>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <div>
+                                <form asp-page-handler="wishlist" method="POST" asp-route-itemid="@i">
+                                    <button class="btn">Add to Wishlist</button>
+                                </form>
+                            </div>
+                        }
+                </div>
+            </div>
+        }
+        
+    </div>
+    
+</div>
